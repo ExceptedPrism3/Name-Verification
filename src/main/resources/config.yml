@@ -14,7 +14,13 @@
 
 
 # Names to be kicked
+# The Checker is Case Sensitive
+# If you'd like to provide more Names to be added in any Language you can do so by joining the Discord above!
 Names:
+  - 'Notch'
+  - 'Hero'
+  - 'Herobrine'
+  - 'Hypixel'
   - 'PornHub'
   - 'Nigga'
   - 'Cum'
@@ -34,5 +40,5 @@ Names:
 Messages:
   Kick-Message: '&cThis Username is not allowed!'
   No-Permission: '&cYou do not have permission to run this command.'
-  Reload-Message: '&aConfigs Reloaded.'
+  Reload-Message: '&aConfig Reloaded.'
   Invalid-Syntax: '&cInvalid Syntax!'
