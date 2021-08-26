@@ -2,6 +2,8 @@ package com.carpour.nameverif;
 
 import com.carpour.nameverif.Commands.onNameCommand;
 import com.carpour.nameverif.Events.onJoin;
+import com.carpour.nameverif.Utils.Metrics;
+import com.carpour.nameverif.Utils.UpdateChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,6 +24,14 @@ public final class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new onJoin(), this);
 
         Objects.requireNonNull(getCommand("nameverif")).setExecutor(new onNameCommand());
+
+        //bstats
+
+        new Metrics(this, 12610);
+
+        //Update Checker
+        UpdateChecker updater = new UpdateChecker(this);
+        updater.checkForUpdate();
 
         getServer().getLogger().info("[Name-Verification] " + ChatColor.GREEN + "Plugin Enabled!");
 
