@@ -1,0 +1,38 @@
+# /////////////////////////////////////////////////////////////
+# /                                                           /
+# /                 Name-Verification Plugin                  /
+# /                                                           /
+# /////////////////////////////////////////////////////////////
+#
+# Thank you for using Name-Verification Plugin! If you are experiencing any issues
+# or have any suggestions / features you want to be implemented into the plugin
+# feel free to join the support Discord Server!
+#
+# Spigot: Prism3
+# Discord: Prism3#5787 | ID: 403667971089760257
+# Discord Server: https://discord.gg/MfR5mcpVfX
+
+
+# Names to be kicked
+Names:
+  - 'PornHub'
+  - 'Nigga'
+  - 'Cum'
+  - 'sex'
+  - 'Pussy'
+  - 'Fuck'
+  - 'noob'
+  - 'Yousuck'
+  - 'balls'
+  - 'retard'
+  - 'couilles'
+  - 'seins'
+  - 'penis'
+  - 'connard'
+  - '1234'
+
+Messages:
+  Kick-Message: '&cThis Username is not allowed!'
+  No-Permission: '&cYou do not have permission to run this command.'
+  Reload-Message: '&aConfigs Reloaded.'
+  Invalid-Syntax: '&cInvalid Syntax!'
