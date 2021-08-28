@@ -14,8 +14,6 @@
 
 
 # Names to be kicked
-# The Checker is Case Sensitive
-# If you'd like to provide more Names to be added in any Language you can do so by joining the Discord above!
 Names:
   - 'Notch'
   - 'Hero'
@@ -36,6 +34,11 @@ Names:
   - 'penis'
   - 'connard'
   - '1234'
+
+# Bedrock feature, make sure that the Space-Replacement is the same as in your Geyser's config!
+Bedrock:
+  Enable: false
+  Space-Replacement: '_'
 
 Messages:
   Kick-Message: '&cThis Username is not allowed!'

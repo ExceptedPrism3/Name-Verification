@@ -17,12 +17,23 @@ public class onJoin implements Listener {
     public void onPlayerJoin (PlayerJoinEvent e){
 
         Player player = e.getPlayer();
-        String playername = player.getName();
+        String playername = player.getName().toLowerCase();
         List<String> names = main.getConfig().getStringList("Names");
+        names.replaceAll(String::toLowerCase);
 
-        if (names.contains(playername)) {
+        if (names.contains(playername.toLowerCase())) {
 
             player.kickPlayer(Objects.requireNonNull(main.getConfig().getString("Messages.Kick-Message")).replaceAll("&", "§"));
+        }
+
+        if (main.getConfig().getBoolean("Bedrock.Enable")){
+
+            playername = playername.replaceAll(" ", Objects.requireNonNull(main.getConfig().getString("Bedrock.Space-Replacement")));
+
+            if (names.contains(playername.toLowerCase())) {
+
+                player.kickPlayer(Objects.requireNonNull(main.getConfig().getString("Messages.Kick-Message")).replaceAll("&", "§"));
+            }
         }
     }
 }

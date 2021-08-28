@@ -33,6 +33,12 @@ public final class Main extends JavaPlugin {
         UpdateChecker updater = new UpdateChecker(this);
         updater.checkForUpdate();
 
+        if (getConfig().getBoolean("Bedrock.Enable")){
+
+            getServer().getLogger().info("[Name-Verification] " + ChatColor.AQUA + "Bedrock Checker Enabled!");
+
+        }
+
         getServer().getLogger().info("[Name-Verification] " + ChatColor.GREEN + "Plugin Enabled!");
 
     }
