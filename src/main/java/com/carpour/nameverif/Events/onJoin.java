@@ -1,15 +1,14 @@
 package com.carpour.nameverif.Events;
 
+import com.carpour.nameverif.APIs.FloodGateUtils;
 import com.carpour.nameverif.Main;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.geysermc.floodgate.api.FloodgateApi;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class onJoin implements Listener {
 
@@ -19,23 +18,43 @@ public class onJoin implements Listener {
     public void onPlayerJoin (PlayerJoinEvent e){
 
         Player player = e.getPlayer();
-        String playername = player.getName().toLowerCase();
-        List<String> names = main.getConfig().getStringList("Names");
+        String playerName = player.getName();
+        List<String> names = main.getBlacklistedNames();
+        List<String> whitelistedNames = main.getWhitelistedNames();
         names.replaceAll(String::toLowerCase);
 
-        if (names.contains(playername.toLowerCase())) {
+        if (player.hasPermission("nameverif.admin") || player.hasPermission("nameverif.bypass")) return;
 
-            player.kickPlayer(Objects.requireNonNull(main.getConfig().getString("Messages.Kick-Message")).replaceAll("&", "§"));
+        if (FloodGateUtils.getFloodGateAPI()) {
+
+            UUID playerUUID = player.getUniqueId();
+
+            boolean isBedRock = FloodgateApi.getInstance().isFloodgatePlayer(playerUUID);
+
+            if (isBedRock) {
+
+                String playerPrefix = FloodgateApi.getInstance().getPlayerPrefix();
+
+                playerName = playerName.replaceAll(" ", playerPrefix);
+            }
         }
 
-        if (main.getConfig().getBoolean("Bedrock.Enable")){
+        if (main.getConfig().getBoolean("Whitelist-Names.Enable")) {
 
-            playername = playername.replaceAll(" ", Objects.requireNonNull(main.getConfig().getString("Bedrock.Space-Replacement")));
-
-            if (names.contains(playername.toLowerCase())) {
+            if (!whitelistedNames.contains(playerName)) {
 
                 player.kickPlayer(Objects.requireNonNull(main.getConfig().getString("Messages.Kick-Message")).replaceAll("&", "§"));
+
             }
+
+            return;
+        }
+
+        playerName = playerName.toLowerCase();
+
+        if (names.contains(playerName)) {
+
+            player.kickPlayer(Objects.requireNonNull(main.getConfig().getString("Messages.Kick-Message")).replaceAll("&", "§"));
         }
     }
 }

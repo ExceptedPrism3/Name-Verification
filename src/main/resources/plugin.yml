@@ -1,16 +1,17 @@
 name: NameVerif
-version: '${project.version}'
+version: ${project.version}
 main: com.carpour.nameverif.Main
 api-version: 1.13
 authors: [ Prism3 ]
 description: Simple plugin that checks for inappropriate player names before joining your Server.
-website: carpour.com
+softdepend: [Geyser, floodgate]
+website: prism3.me
 commands:
   nameverif:
     description: Plugin Command.
-  nameverif reload:
-    description: Reloads the plugin Config.
 permissions:
-  nameverif.reload:
-    description: Allows to reload the Plugin.
+  nameverif.admin:
+    description: Ability to toggle, add, remove, and list names from the config and reloading it.
     default: op
+  nameverif.bypass:
+    description: Bypass the Checkers.
