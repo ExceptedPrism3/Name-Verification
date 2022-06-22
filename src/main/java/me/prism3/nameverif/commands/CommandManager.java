@@ -1,6 +1,5 @@
 package me.prism3.nameverif.commands;
 
-import com.carpour.nameverif.commands.onsubcommands.*;
 import me.prism3.nameverif.Main;
 import me.prism3.nameverif.commands.onsubcommands.*;
 import org.bukkit.ChatColor;
