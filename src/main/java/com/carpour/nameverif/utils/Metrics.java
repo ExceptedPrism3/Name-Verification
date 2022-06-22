@@ -1,4 +1,4 @@
-package com.carpour.nameverif.Utils;
+package com.carpour.nameverif.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;

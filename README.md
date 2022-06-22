@@ -2,6 +2,9 @@
 
 ![Updated Badge](https://badges.pufler.dev/updated/ExceptedPrism3/Name-Verification)
 ![Version](https://img.shields.io/github/v/release/ExceptedPrism3/Name-Verification)
+![Downloads](https://img.shields.io/github/downloads/ExceptedPrism3/Name-Verification/total)
+![Issues](https://img.shields.io/github/issues/ExceptedPrism3/Name-Verification)
+[![Discord](https://img.shields.io/discord/850407951629287424)](https://discord.gg/MfR5mcpVfX)
 
 A spigot plugin that checks the Player's Name for any inappropriate words
 and or if they're whitelisted and therefore kicks them with a Message!
@@ -9,9 +12,9 @@ and or if they're whitelisted and therefore kicks them with a Message!
 This plugin can be found at [Spigot](https://www.spigotmc.org/resources/nameverif.95719/)
 and [MC-Market](https://www.mc-market.org/resources/21092/).
 
-Plugin's Wiki can also be found [here](https://app.gitbook.com/s/Yqxo1O1OXrWwKxMKSTfH/).
+Plugin's Wiki can be found [**here**](https://prism3.gitbook.io/nameverification/).
 
-If support is needed, join my [Discord](https://discord.gg/MfR5mcpVfX).
+If support is needed or a suggesting that needs to be implemented, feel free to ask on the [Discord](https://discord.gg/MfR5mcpVfX), also do not forget to check out the plugin's **[Wiki](https://prism3.gitbook.io/nameverification/)**.
 
 # About the Plugin
 This Plugin Checks for Player Names for any Inappropriate Names Listed

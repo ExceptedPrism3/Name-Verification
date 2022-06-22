@@ -1,0 +1,29 @@
+<-!------------------------------------------ v3.2 ------------------------------------------!->
+
+Additions
+    [+] Added Wiki for the Plugin
+    [+] Added Whitelist Checker
+    [+] Added Floodgate Plugin Detection
+    [+] Added new Commands
+        > /nameverif list-blacklist - List all blacklisted names
+        > /nameverif add-blacklist "name" - Add the given name into the blacklist field
+        > /nameverif remove-blacklist "name" - Remove the given name from the blacklist field
+        > /nameverif list-whitelist - List all whitelisted names
+        > /nameverif add-whitelist "name" - Add the given name into the whitelist field
+        > /nameverif remove-whitelist "name" - Remove the given name from the whitelist field
+        > /nameverif toggle - Toggle Whitelist Mode
+        > /nameverif reload - Reload the Config
+    [+] Added new Permissions
+        > nameverif.admin - Ability to List, Add, Remove, Toggle, and Reload
+        > nameverif.bypass - Bypass the Checkers
+Changes
+    [!] Improved the Geyser Plugin detection
+    [!] New Update Checker
+    [!] config.yml structure
+
+<-!------------------------------------------ v3.2.1 ------------------------------------------!->
+
+Additions
+    [+] Added 1.19 Support
+Changes
+    [!] Minor code improvements

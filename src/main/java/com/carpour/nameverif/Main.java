@@ -1,12 +1,11 @@
 package com.carpour.nameverif;
 
-import com.carpour.nameverif.APIs.FloodGateUtils;
-import com.carpour.nameverif.APIs.GeyserUtil;
-import com.carpour.nameverif.Commands.CommandManager;
-import com.carpour.nameverif.Events.onJoin;
-import com.carpour.nameverif.Utils.Metrics;
+import com.carpour.nameverif.api.FloodGateUtils;
+import com.carpour.nameverif.api.GeyserUtil;
+import com.carpour.nameverif.commands.CommandManager;
+import com.carpour.nameverif.events.OnJoin;
+import com.carpour.nameverif.utils.Metrics;
 import de.jeff_media.updatechecker.UpdateChecker;
-import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
@@ -25,52 +24,52 @@ public final class Main extends JavaPlugin {
 
         instance = this;
 
-        saveDefaultConfig();
+        this.saveDefaultConfig();
 
-        getServer().getPluginManager().registerEvents(new onJoin(), this);
+        this.getServer().getPluginManager().registerEvents(new OnJoin(), this);
 
         Objects.requireNonNull(getCommand("nameverif")).setExecutor(new CommandManager());
 
-        //bstats
+        // bStats
 
         new Metrics(this, 12610);
 
         //Update Checker
-        int resource_ID = 95719;
-        UpdateChecker.init(this, resource_ID)
-                .checkEveryXHours(2)
-                .setChangelogLink(resource_ID)
+        int resourceID = 95719;
+        UpdateChecker.init(this, resourceID)
+                .checkEveryXHours(4)
+                .setChangelogLink(resourceID)
                 .setNotifyOpsOnJoin(true)
                 .checkNow();
 
         if (GeyserUtil.getGeyserAPI() != null){
 
-            getServer().getLogger().info("[Name-Verification] Geyser Plugin Detected!");
+            this.getServer().getLogger().info("[Name-Verification] Geyser Plugin Detected!");
 
         }
 
         if (FloodGateUtils.getFloodGateAPI()){
 
-            getServer().getLogger().info("[Name-Verification] Floodgate Plugin Detected!");
+            this.getServer().getLogger().info("[Name-Verification] Floodgate Plugin Detected!");
 
         }
 
-        getServer().getLogger().info("[Name-Verification] " + ChatColor.GREEN + "Plugin Enabled!");
+        this.getServer().getLogger().info("[Name-Verification] Plugin Enabled!");
+
+    }
+
+    @Override
+    public void onDisable() {
+
+        this.getServer().getLogger().info("[Name-Verification] Plugin Disabled!");
 
     }
 
     public static Main getInstance() { return instance; }
 
-    @Override
-    public void onDisable() {
+    public List<String> getBlacklistedNames(){ return this.blacklistedNames; }
 
-        getServer().getLogger().info("[Name-Verification] " + ChatColor.RED + "Plugin Disabled!");
+    public List<String> getWhitelistedNames() { return this.whitelistedNames; }
 
-    }
-
-    public List<String> getBlacklistedNames(){ return blacklistedNames; }
-
-    public List<String> getWhitelistedNames() { return whitelistedNames; }
-
-    public boolean getSwitched(){ return isSwitched; }
+    public boolean getSwitched(){ return this.isSwitched; }
 }

@@ -1,17 +1,19 @@
-package com.carpour.nameverif.Commands.OnSubCommands;
+package com.carpour.nameverif.commands.onsubcommands;
 
-import com.carpour.nameverif.Commands.SubCommands;
+import com.carpour.nameverif.commands.SubCommands;
 import com.carpour.nameverif.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
-public class WhiteListToggle extends SubCommands {
+public class WhiteListToggle implements SubCommands {
 
-    Main main = Main.getInstance();
-
-    private boolean isSwitched = main.getSwitched();
+    private final Main main = Main.getInstance();
+    private boolean isSwitched = this.main.getSwitched();
 
     @Override
     public String getName() {
@@ -31,11 +33,11 @@ public class WhiteListToggle extends SubCommands {
     @Override
     public void perform(CommandSender sender, String[] args) {
 
-        if (args.length > 1 || !(args[0].equalsIgnoreCase(getName()))){
+        if (args.length > 1 || !(args[0].equalsIgnoreCase(getName()))) {
 
-            sender.sendMessage(Objects.requireNonNull(main.getConfig().getString("Messages.Invalid-Syntax")).replaceAll("&", "§"));
+            sender.sendMessage(Objects.requireNonNull(main.getConfig().getString("Messages.Invalid-Syntax")).replace("&", "§"));
 
-        } else if (!isSwitched){
+        } else if (!isSwitched) {
 
             isSwitched = true;
 
@@ -45,7 +47,7 @@ public class WhiteListToggle extends SubCommands {
 
             sender.sendMessage(ChatColor.GREEN + "Whitelist Mode On");
 
-        }else {
+        } else {
 
             isSwitched = false;
 
@@ -56,4 +58,7 @@ public class WhiteListToggle extends SubCommands {
             sender.sendMessage(ChatColor.RED + "Whitelist Mode Off");
         }
     }
+
+    @Override
+    public List<String> getSubCommandsArgs(Player player, String[] args) { return Collections.emptyList(); }
 }

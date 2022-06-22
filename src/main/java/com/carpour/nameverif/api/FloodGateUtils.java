@@ -1,6 +1,8 @@
-package com.carpour.nameverif.APIs;
+package com.carpour.nameverif.api;
 
 public class FloodGateUtils {
+
+    private FloodGateUtils() {}
 
     public static boolean getFloodGateAPI() {
 
@@ -8,7 +10,7 @@ public class FloodGateUtils {
 
             Class.forName("org.geysermc.floodgate.api.FloodgateApi");
 
-        }catch (Exception ignored){
+        } catch (Exception ignored) {
 
             return false;
 
