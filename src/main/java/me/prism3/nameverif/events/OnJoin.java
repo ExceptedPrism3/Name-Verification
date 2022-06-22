@@ -1,7 +1,7 @@
-package com.carpour.nameverif.events;
+package me.prism3.nameverif.events;
 
-import com.carpour.nameverif.api.FloodGateUtils;
-import com.carpour.nameverif.Main;
+import me.prism3.nameverif.api.FloodGateUtils;
+import me.prism3.nameverif.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

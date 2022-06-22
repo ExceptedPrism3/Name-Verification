@@ -1,4 +1,4 @@
-package com.carpour.nameverif.commands;
+package me.prism3.nameverif.commands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

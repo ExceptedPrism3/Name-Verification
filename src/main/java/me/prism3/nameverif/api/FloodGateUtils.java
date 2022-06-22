@@ -1,4 +1,4 @@
-package com.carpour.nameverif.api;
+package me.prism3.nameverif.api;
 
 public class FloodGateUtils {
 

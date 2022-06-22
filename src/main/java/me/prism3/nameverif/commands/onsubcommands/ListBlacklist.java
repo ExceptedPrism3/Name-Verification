@@ -1,7 +1,8 @@
-package com.carpour.nameverif.commands.onsubcommands;
+package me.prism3.nameverif.commands.onsubcommands;
 
-import com.carpour.nameverif.commands.SubCommands;
-import com.carpour.nameverif.Main;
+import me.prism3.nameverif.commands.SubCommands;
+import me.prism3.nameverif.Main;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -9,16 +10,19 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class Reload implements SubCommands {
+public class ListBlacklist implements SubCommands {
 
     private final Main main = Main.getInstance();
+    private final List<String> blacklistList = this.main.getBlacklistedNames();
 
     @Override
-    public String getName() { return "reload";  }
+    public String getName() {
+        return "list-blacklist";
+    }
 
     @Override
     public String getDescription() {
-        return "Reloads the Plugin.";
+        return "Lists all stored blacklisted names.";
     }
 
     @Override
@@ -35,8 +39,10 @@ public class Reload implements SubCommands {
 
         } else {
 
-            this.main.reloadConfig();
-            sender.sendMessage(Objects.requireNonNull(this.main.getConfig().getString("Messages.Reload-Message")).replace("&", "§"));
+            sender.sendMessage(ChatColor.AQUA + "Blacklisted Names:");
+
+            this.blacklistList.forEach(sender::sendMessage);
+
         }
     }
 

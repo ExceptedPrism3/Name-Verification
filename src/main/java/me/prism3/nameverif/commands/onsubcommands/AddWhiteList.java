@@ -1,7 +1,7 @@
-package com.carpour.nameverif.commands.onsubcommands;
+package me.prism3.nameverif.commands.onsubcommands;
 
-import com.carpour.nameverif.commands.SubCommands;
-import com.carpour.nameverif.Main;
+import me.prism3.nameverif.commands.SubCommands;
+import me.prism3.nameverif.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -10,19 +10,19 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class RemoveBlackList implements SubCommands {
+public class AddWhiteList implements SubCommands {
 
     private final Main main = Main.getInstance();
-    private final List<String> blacklistedNames = this.main.getBlacklistedNames();
+    private final List<String> whitelistedNames = this.main.getWhitelistedNames();
 
     @Override
     public String getName() {
-        return "remove-blacklist";
+        return "add-whitelist";
     }
 
     @Override
     public String getDescription() {
-        return "Remove the name from blacklist field.";
+        return "Add Names into Whitelist Field.";
     }
 
     @Override
@@ -39,21 +39,23 @@ public class RemoveBlackList implements SubCommands {
 
         } else if (args.length > 1) {
 
-            String name = args[1];
+            final String name = args[1];
 
-            if (this.blacklistedNames.contains(name)) {
+            if (!this.whitelistedNames.contains(name)) {
 
-                this.blacklistedNames.remove(name);
-                this.main.getConfig().set("Blacklisted-Names", this.blacklistedNames);
+                this.whitelistedNames.add(name);
+
+                this.main.getConfig().set("Whitelist-Names.Whitelisted-Names", this.whitelistedNames);
                 this.main.saveConfig();
 
-                sender.sendMessage(ChatColor.GREEN + name + " was removed from the list");
+                sender.sendMessage(ChatColor.AQUA + name + ChatColor.GREEN + " was added to the list");
 
             } else {
 
-                sender.sendMessage(ChatColor.RED + name + " does not exist in list");
+                sender.sendMessage(ChatColor.AQUA + name + ChatColor.RED + " Already exists in the list");
 
             }
+
         } else if (args.length == 1) {
 
             sender.sendMessage(ChatColor.RED + "You need to provide a name!");

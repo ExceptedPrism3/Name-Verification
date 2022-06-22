@@ -1,10 +1,10 @@
-package com.carpour.nameverif;
+package me.prism3.nameverif;
 
-import com.carpour.nameverif.api.FloodGateUtils;
-import com.carpour.nameverif.api.GeyserUtil;
-import com.carpour.nameverif.commands.CommandManager;
-import com.carpour.nameverif.events.OnJoin;
-import com.carpour.nameverif.utils.Metrics;
+import me.prism3.nameverif.api.FloodGateUtils;
+import me.prism3.nameverif.api.GeyserUtil;
+import me.prism3.nameverif.commands.CommandManager;
+import me.prism3.nameverif.events.OnJoin;
+import me.prism3.nameverif.utils.Metrics;
 import de.jeff_media.updatechecker.UpdateChecker;
 import org.bukkit.plugin.java.JavaPlugin;
 
