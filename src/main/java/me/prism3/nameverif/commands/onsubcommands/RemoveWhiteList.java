@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 public class RemoveWhiteList implements SubCommands {
 
@@ -35,7 +34,7 @@ public class RemoveWhiteList implements SubCommands {
 
         if (args.length > 2) {
 
-            sender.sendMessage(Objects.requireNonNull(this.main.getConfig().getString("Messages.Invalid-Syntax")).replace("&", "§"));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.main.getConfig().getString("Messages.Invalid-Syntax")));
 
         } else if (args.length > 1) {
 

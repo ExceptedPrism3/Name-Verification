@@ -11,13 +11,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class CommandManager implements TabExecutor {
 
     private final ArrayList<SubCommands> subCommands = new ArrayList<>();
 
-    public CommandManager(){
+    public CommandManager() {
 
         this.subCommands.add(new AddBlackList());
         this.subCommands.add(new RemoveBlackList());
@@ -60,9 +59,9 @@ public class CommandManager implements TabExecutor {
                 sender.sendMessage(ChatColor.BLUE + "----------------------------");
 
             }
-        }else{
+        } else {
 
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(Main.getInstance().getConfig().getString("Messages.No-Permission"))));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Main.getInstance().getConfig().getString("Messages.No-Permission")));
             return false;
         }
 
@@ -73,7 +72,7 @@ public class CommandManager implements TabExecutor {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
 
-        if (args.length == 1){
+        if (args.length == 1) {
 
             final ArrayList<String> subCommandsArgs = new ArrayList<>();
 

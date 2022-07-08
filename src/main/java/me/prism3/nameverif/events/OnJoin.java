@@ -16,7 +16,7 @@ public class OnJoin implements Listener {
     private final Main main = Main.getInstance();
 
     @EventHandler
-    public void onPlayerJoin (PlayerJoinEvent e){
+    public void onPlayerJoin (PlayerJoinEvent e) {
 
         final Player player = e.getPlayer();
         String playerName = player.getName();
@@ -42,7 +42,7 @@ public class OnJoin implements Listener {
 
             if (!whitelistedNames.contains(playerName)) {
 
-                player.kickPlayer(Objects.requireNonNull(this.main.getConfig().getString("Messages.Kick-Message")).replace("&", "§"));
+                player.kickPlayer(ChatColor.translateAlternateColorCodes('&', this.main.getConfig().getString("Messages.Kick-Message")));
 
             }
 
@@ -56,7 +56,7 @@ public class OnJoin implements Listener {
 
         if (names.contains(playerName)) {
 
-            player.kickPlayer(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(this.main.getConfig().getString("Messages.Kick-Message"))));
+            player.kickPlayer(ChatColor.translateAlternateColorCodes('&', this.main.getConfig().getString("Messages.Kick-Message")));
         }
     }
 }

@@ -1,6 +1,6 @@
 name: NameVerif
 version: ${project.version}
-main: com.carpour.nameverif.Main
+main: me.prism3.nameverif.Main
 api-version: 1.13
 authors: [ Prism3 ]
 description: Simple plugin that checks for inappropriate player names before joining your Server.

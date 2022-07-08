@@ -28,13 +28,13 @@ public final class Main extends JavaPlugin {
 
         this.getServer().getPluginManager().registerEvents(new OnJoin(), this);
 
-        Objects.requireNonNull(getCommand("nameverif")).setExecutor(new CommandManager());
+        Objects.requireNonNull(this.getCommand("nameverif")).setExecutor(new CommandManager());
 
         // bStats
 
         new Metrics(this, 12610);
 
-        //Update Checker
+        // Update Checker
         int resourceID = 95719;
         UpdateChecker.init(this, resourceID)
                 .checkEveryXHours(4)
@@ -42,34 +42,34 @@ public final class Main extends JavaPlugin {
                 .setNotifyOpsOnJoin(true)
                 .checkNow();
 
-        if (GeyserUtil.getGeyserAPI() != null){
+        if (GeyserUtil.getGeyserAPI() != null) {
 
-            this.getServer().getLogger().info("[Name-Verification] Geyser Plugin Detected!");
-
-        }
-
-        if (FloodGateUtils.getFloodGateAPI()){
-
-            this.getServer().getLogger().info("[Name-Verification] Floodgate Plugin Detected!");
+            this.getServer().getLogger().info("Geyser Plugin Detected!");
 
         }
 
-        this.getServer().getLogger().info("[Name-Verification] Plugin Enabled!");
+        if (FloodGateUtils.getFloodGateAPI()) {
+
+            this.getServer().getLogger().info("Floodgate Plugin Detected!");
+
+        }
+
+        this.getServer().getLogger().info("Plugin Enabled!");
 
     }
 
     @Override
     public void onDisable() {
 
-        this.getServer().getLogger().info("[Name-Verification] Plugin Disabled!");
+        this.getServer().getLogger().info("Plugin Disabled!");
 
     }
 
     public static Main getInstance() { return instance; }
 
-    public List<String> getBlacklistedNames(){ return this.blacklistedNames; }
+    public List<String> getBlacklistedNames() { return this.blacklistedNames; }
 
     public List<String> getWhitelistedNames() { return this.whitelistedNames; }
 
-    public boolean getSwitched(){ return this.isSwitched; }
+    public boolean getSwitched() { return this.isSwitched; }
 }
