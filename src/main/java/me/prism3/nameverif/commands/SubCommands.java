@@ -1,20 +1,27 @@
 package me.prism3.nameverif.commands;
 
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import java.util.List;
 
+
+/**
+ * Interface class that contains helper methods that will be used in this plugin's commands.
+ */
 public interface SubCommands {
 
+    // Get the command name
     String getName();
 
+    // Get the command description
     String getDescription();
 
+    // Get the command syntax
     String getSyntax();
 
-    void perform(CommandSender sender, String[] args);
+    // Method to execute the command
+    void perform(final CommandSender commandSender, final String[] args);
 
-    List<String> getSubCommandsArgs(Player player, String[] args);
-
+    // Args for additional options for the command
+    List<String> getSubCommandsArgs(final CommandSender player, final String[] args);
 }

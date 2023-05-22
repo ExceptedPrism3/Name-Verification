@@ -9,6 +9,20 @@ website: prism3.me
 commands:
   nameverif:
     description: Plugin Command.
+  nameverif add-blacklist:
+    description: Add a name into the blacklist
+  nameverif add-whitelist:
+    description: Add a name into the whitelist
+  nameverif list-blacklist:
+    description: list-whitelist
+  nameverif reload:
+    description: Reload the plugin config
+  nameverif remove-blacklist:
+    description: Remove a name from the blacklist
+  nameverif remove-whitelist:
+    description: Remove a name from the whitelist
+  nameverif toggle:
+    description: Toggle the whitelist mode
 permissions:
   nameverif.admin:
     description: Ability to toggle, add, remove, and list names from the config and reloading it.

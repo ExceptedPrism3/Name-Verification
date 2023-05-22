@@ -18,14 +18,17 @@ Blacklisted-Names:
   - "penis"
   - "connard"
   - "1234"
+
 Whitelist-Names:
   Enable: false
   Whitelisted-Names:
     - "Owner"
     - "keyboard13"
     - "Prism"
+
 Messages:
-  Kick-Message: "&cThis Username is not allowed!"
+  Prefix: "&9&lName&f-&9&lVerification &8&l|"
+  Kick: "&cThis Username is not allowed!"
   No-Permission: "&cYou do not have permission to run this command."
-  Reload-Message: "&aConfig Reloaded."
+  Reload: "&aConfig Reloaded."
   Invalid-Syntax: "&cInvalid Syntax!"

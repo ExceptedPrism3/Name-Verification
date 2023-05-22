@@ -1,7 +1,6 @@
 package me.prism3.nameverif.events;
 
-import me.prism3.nameverif.api.FloodGateUtils;
-import me.prism3.nameverif.Main;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,54 +8,79 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.geysermc.floodgate.api.FloodgateApi;
 
-import java.util.*;
+import static me.prism3.nameverif.utils.Data.*;
 
+
+/**
+ * Represents the event listener for player join events.
+ */
 public class OnJoin implements Listener {
 
-    private final Main main = Main.getInstance();
-
+    /**
+     * Handles the player join event.
+     *
+     * @param event The PlayerJoinEvent.
+     */
     @EventHandler
-    public void onPlayerJoin (PlayerJoinEvent e) {
+    public void onPlayerJoin(final PlayerJoinEvent event) {
 
-        final Player player = e.getPlayer();
-        String playerName = player.getName();
-        final List<String> whitelistedNames = this.main.getWhitelistedNames();
+        final Player player = event.getPlayer();
 
-        if (player.hasPermission("nameverif.admin") || player.hasPermission("nameverif.bypass")) return;
+        if (player.hasPermission(nameVerifBypass))
+            return;
 
-        if (FloodGateUtils.getFloodGateAPI()) {
+        final String playerName = player.getName().toLowerCase().replaceAll("(.)\\1{2,}|[0-9-_]", "$0");
 
-            final UUID playerUUID = player.getUniqueId();
+        if (isGeyserPresent)
+            this.applyBedrockChecker(player);
 
-            final boolean isBedRock = FloodgateApi.getInstance().isFloodgatePlayer(playerUUID);
-
-            if (isBedRock) {
-
-                final String playerPrefix = FloodgateApi.getInstance().getPlayerPrefix();
-
-                playerName = playerName.replace(" ", playerPrefix);
-            }
-        }
-
-        if (this.main.getConfig().getBoolean("Whitelist-Names.Enable")) {
-
-            if (!whitelistedNames.contains(playerName)) {
-
-                player.kickPlayer(ChatColor.translateAlternateColorCodes('&', this.main.getConfig().getString("Messages.Kick-Message")));
-
-            }
-
+        if (isSwitched && whitelistedNames.stream().noneMatch(name -> name.equalsIgnoreCase(playerName))) {
+            this.kickPlayer(player, event);
             return;
         }
 
-        playerName = playerName.toLowerCase().replaceAll("(.)\1{2,}", "$0").replaceAll("[0-9-_]", "");
+        if (blacklistedNames.stream().anyMatch(name -> name.equalsIgnoreCase(playerName)))
+            this.kickPlayer(player, event);
+    }
 
-        final List<String> names = this.main.getBlacklistedNames();
-        names.replaceAll(String::toLowerCase);
+    /**
+     * Applies the Bedrock checker to the player if Geyser is present.
+     *
+     * @param player The player to apply the Bedrock checker to.
+     */
+    private void applyBedrockChecker(final Player player) {
 
-        if (names.contains(playerName)) {
+        final FloodgateApi floodgateApi = FloodgateApi.getInstance();
 
-            player.kickPlayer(ChatColor.translateAlternateColorCodes('&', this.main.getConfig().getString("Messages.Kick-Message")));
+        if (floodgateApi.isFloodgatePlayer(player.getUniqueId())) {
+
+            final String playerPrefix = floodgateApi.getPlayerPrefix();
+
+            player.setDisplayName(player.getDisplayName().replace(" ", playerPrefix));
         }
+    }
+
+    /**
+     * Kicks the player with the configured kick message.
+     *
+     * @param player The player to kick.
+     */
+    private void kickPlayer(final Player player, final PlayerJoinEvent event) {
+        player.kickPlayer(ChatColor.translateAlternateColorCodes('&', kickMessage));
+        this.notifyStaff(player.getName());
+    }
+
+    /**
+     * Method to notify the admins when a player tries to join with a blacklisted name.
+     *
+     * @param kickedPlayerName the name of the player that is blacklisted
+     */
+    private void notifyStaff(final String kickedPlayerName) {
+        Bukkit.getOnlinePlayers().stream()
+                .filter(player -> player.hasPermission(nameVerifAdmin))
+                .forEach(player -> {
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                            pluginPrefix + " &cA player tried to join with a blacklisted name: " + kickedPlayerName));
+                });
     }
 }
