@@ -27,7 +27,7 @@ Cracked Servers as users can access with any name.
 
 # Commands
 - /nameverif list <blacklist OR whitelist> - List all desired type's names
-- /nameverif modifylist <add OR remove> <whitelist OR blacklist> <name> - Add the given name into the blacklist field
+- /nameverif modifylist <add OR remove> <whitelist OR blacklist> <name> - Add or remove the given name to / from the appropriate field
 - /nameverif toggle - Toggle Whitelist Mode
 - /nameverif reload - Reload the Config
 
