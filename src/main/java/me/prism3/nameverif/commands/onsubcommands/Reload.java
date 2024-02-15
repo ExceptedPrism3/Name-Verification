@@ -2,6 +2,7 @@ package me.prism3.nameverif.commands.onsubcommands;
 
 import me.prism3.nameverif.commands.SubCommands;
 import me.prism3.nameverif.Main;
+import me.prism3.nameverif.utils.Data;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -59,6 +60,9 @@ public class Reload implements SubCommands {
         } else {
 
             this.main.reloadConfig();
+            Data.initializeStrings();
+            Data.initializeListOfStrings();
+            Data.initializeBooleans();
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', reloadMessage));
         }
     }

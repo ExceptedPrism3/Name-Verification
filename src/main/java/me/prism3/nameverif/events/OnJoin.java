@@ -1,5 +1,6 @@
 package me.prism3.nameverif.events;
 
+import me.prism3.nameverif.utils.AttemptTracker;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -28,6 +29,9 @@ public class OnJoin implements Listener {
 
         if (player.hasPermission(nameVerifBypass))
             return;
+
+        if (isBanEnabled)
+            new AttemptTracker().recordAttempt(player);
 
         final String playerName = player.getName().toLowerCase().replaceAll("(.)\\1{2,}|[0-9-_]", "$0");
 

@@ -7,6 +7,7 @@ import me.prism3.nameverif.hooks.BedRockPlayerChecker;
 
 import java.util.List;
 
+
 /**
  * Utility class for managing plugin data and initialization.
  */
@@ -19,15 +20,18 @@ public class Data {
     private static final String NO_PERMISSION_MESSAGE_KEY = "Messages.No-Permission";
     private static final String RELOAD_MESSAGE_KEY = "Messages.Reload";
     private static final String INVALID_SYNTAX_MESSAGE_KEY = "Messages.Invalid-Syntax";
+    private static final String BAN_MESSAGE_KEY = "Messages.Ban";
     private static final String PLUGIN_PREFIX_KEY = "Messages.Prefix";
     private static final String WHITELISTED_NAMES_KEY = "Whitelist-Names.Whitelisted-Names";
     private static final String BLACKLISTED_NAMES_KEY = "Blacklisted-Names";
     private static final String SWITCHED_KEY = "Whitelist-Names.Enable";
+    private static final String BAN_KEY = "Ban.Enabled";
 
     public static String kickMessage;
     public static String reloadMessage;
     public static String noPermissionMessage;
     public static String invalidSyntaxMessage;
+    public static String banMessage;
     public static String pluginName;
     public static String pluginPrefix;
     public static String pluginVersion;
@@ -37,6 +41,9 @@ public class Data {
 
     public static boolean isSwitched;
     public static boolean isGeyserPresent;
+    public static boolean isBanEnabled;
+
+    public static int banAttempts;
 
     public static String nameVerifAdmin;
     public static String nameVerifBypass;
@@ -53,6 +60,7 @@ public class Data {
         noPermissionMessage = getConfigString(NO_PERMISSION_MESSAGE_KEY).replace("%prefix%", pluginPrefix);
         reloadMessage = getConfigString(RELOAD_MESSAGE_KEY).replace("%prefix%", pluginPrefix);
         invalidSyntaxMessage = getConfigString(INVALID_SYNTAX_MESSAGE_KEY).replace("%prefix%", pluginPrefix);
+        banMessage = getConfigString(BAN_MESSAGE_KEY).replace("%prefix%", pluginPrefix);
         pluginName = main.getDescription().getName();
         pluginVersion = main.getDescription().getVersion();
     }
@@ -69,7 +77,12 @@ public class Data {
     /**
      * Initializes boolean values from the plugin configuration.
      */
-    public static void initializeBooleans() { isSwitched = main.getConfig().getBoolean(SWITCHED_KEY); }
+    public static void initializeBooleans() {
+        isSwitched = main.getConfig().getBoolean(SWITCHED_KEY);
+        isBanEnabled = main.getConfig().getBoolean(BAN_KEY);
+    }
+
+    public static void initializeIntegers() { banAttempts = main.getConfig().getInt("Ban.Attempts"); }
 
     /**
      * Initializes event listeners for the plugin.

@@ -44,3 +44,11 @@ Changes
 
 Fixes
     [*] When a user is blacklisted, the user appears as left the game resulting in the name appearing in the leave message, which has been fixed
+
+<-!------------------------------------------ v3.3 ------------------------------------------!->
+
+Additions
+    [+] Ban system if user tried to join more than set attempts
+
+Fixes
+    [*] Reload command not updating with the updates

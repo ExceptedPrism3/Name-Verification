@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import static me.prism3.nameverif.utils.ASCIIArt.paint;
 
+
 public final class Main extends JavaPlugin {
 
     private static Main instance;
@@ -48,6 +49,7 @@ public final class Main extends JavaPlugin {
         Data.initializeStrings();
         Data.initializeListOfStrings();
         Data.initializeBooleans();
+        Data.initializeIntegers();
         Data.initializeEvents();
         Data.initializeHooks();
         Data.initializePermissions();
