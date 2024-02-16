@@ -6,6 +6,8 @@ import me.prism3.nameverif.events.OnLeave;
 import me.prism3.nameverif.hooks.BedRockPlayerChecker;
 
 import java.util.List;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 
 /**
@@ -20,7 +22,7 @@ public class Data {
     private static final String NO_PERMISSION_MESSAGE_KEY = "Messages.No-Permission";
     private static final String RELOAD_MESSAGE_KEY = "Messages.Reload";
     private static final String INVALID_SYNTAX_MESSAGE_KEY = "Messages.Invalid-Syntax";
-    private static final String BAN_MESSAGE_KEY = "Messages.Ban";
+    private static final String BAN_REASON_KEY = "Messages.Reason";
     private static final String PLUGIN_PREFIX_KEY = "Messages.Prefix";
     private static final String WHITELISTED_NAMES_KEY = "Whitelist-Names.Whitelisted-Names";
     private static final String BLACKLISTED_NAMES_KEY = "Blacklisted-Names";
@@ -31,12 +33,15 @@ public class Data {
     public static String reloadMessage;
     public static String noPermissionMessage;
     public static String invalidSyntaxMessage;
-    public static String banMessage;
+    public static String banReason;
+    public static String banCommand;
     public static String pluginName;
     public static String pluginPrefix;
     public static String pluginVersion;
 
     public static List<String> blacklistedNames;
+    public static List<Pattern> blacklistedPatterns;
+
     public static List<String> whitelistedNames;
 
     public static boolean isSwitched;
@@ -60,7 +65,8 @@ public class Data {
         noPermissionMessage = getConfigString(NO_PERMISSION_MESSAGE_KEY).replace("%prefix%", pluginPrefix);
         reloadMessage = getConfigString(RELOAD_MESSAGE_KEY).replace("%prefix%", pluginPrefix);
         invalidSyntaxMessage = getConfigString(INVALID_SYNTAX_MESSAGE_KEY).replace("%prefix%", pluginPrefix);
-        banMessage = getConfigString(BAN_MESSAGE_KEY).replace("%prefix%", pluginPrefix);
+        banReason = getConfigString(BAN_REASON_KEY).replace("%prefix%", pluginPrefix);
+        banCommand = getConfigString("Ban.Command").replace("%reason%", banReason);
         pluginName = main.getDescription().getName();
         pluginVersion = main.getDescription().getVersion();
     }
@@ -72,6 +78,20 @@ public class Data {
 
         whitelistedNames = main.getConfig().getStringList(WHITELISTED_NAMES_KEY);
         blacklistedNames = main.getConfig().getStringList(BLACKLISTED_NAMES_KEY);
+
+        final List<String> blacklistWords = main.getConfig().getStringList(BLACKLISTED_NAMES_KEY);
+        blacklistedPatterns = blacklistWords.stream()
+                .map(word -> {
+                    String regexPart = word.chars()
+                            .mapToObj(i -> Pattern.quote(String.valueOf((char) i)) + (Character.isDigit(i) ? "" : "\\W*"))
+                            .collect(Collectors.joining());
+                    String pattern = "\\b" + regexPart + "\\b";
+                    if (word.matches("^\\d+$")) { // Strictly numeric
+                        pattern = "\\b" + regexPart + "(?!\\w)";
+                    }
+                    return Pattern.compile(pattern, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CHARACTER_CLASS);
+                })
+                .collect(Collectors.toList());
     }
 
     /**
@@ -111,5 +131,6 @@ public class Data {
      * @param key the configuration key
      * @return the string value from the configuration, or an empty string if not found
      */
-    private static String getConfigString(final String key) { return main.getConfig().getString(key, ""); }
+    private static String getConfigString(final String key) { return main.getConfig().getString(key, "")
+            .replace("&", "§"); }
 }

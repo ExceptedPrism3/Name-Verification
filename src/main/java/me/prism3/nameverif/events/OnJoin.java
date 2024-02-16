@@ -31,20 +31,25 @@ public class OnJoin implements Listener {
             return;
 
         if (isBanEnabled)
-            new AttemptTracker().recordAttempt(player);
+            AttemptTracker.recordAttempt(player);
 
-        final String playerName = player.getName().toLowerCase().replaceAll("(.)\\1{2,}|[0-9-_]", "$0");
+        final String playerName = player.getName().toLowerCase();
+
+        final boolean isBlacklisted = blacklistedPatterns.stream().anyMatch(pattern -> pattern.matcher(playerName).find());
+
+        if (isBlacklisted)
+            this.kickPlayer(player);
 
         if (isGeyserPresent)
             this.applyBedrockChecker(player);
 
         if (isSwitched && whitelistedNames.stream().noneMatch(name -> name.equalsIgnoreCase(playerName))) {
-            this.kickPlayer(player, event);
+            this.kickPlayer(player);
             return;
         }
 
         if (blacklistedNames.stream().anyMatch(name -> name.equalsIgnoreCase(playerName)))
-            this.kickPlayer(player, event);
+            this.kickPlayer(player);
     }
 
     /**
@@ -69,7 +74,7 @@ public class OnJoin implements Listener {
      *
      * @param player The player to kick.
      */
-    private void kickPlayer(final Player player, final PlayerJoinEvent event) {
+    private void kickPlayer(final Player player) {
         player.kickPlayer(ChatColor.translateAlternateColorCodes('&', kickMessage));
         this.notifyStaff(player.getName());
     }

@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import static me.prism3.nameverif.utils.Data.banAttempts;
+import static me.prism3.nameverif.utils.Data.banCommand;
+
 
 /**
  * Tracks the number of attempts a player makes to join the server with a blacklisted name.
@@ -14,7 +17,7 @@ import java.util.UUID;
 public class AttemptTracker {
 
     // Map to keep track of join attempts by each player, identified by their UUID.
-    private final Map<UUID, Integer> attempts = new HashMap<>();
+    private static final Map<UUID, Integer> attempts = new HashMap<>();
 
     /**
      * Records an attempt to join the server and bans the player if the number of attempts
@@ -22,7 +25,7 @@ public class AttemptTracker {
      *
      * @param player The player who is trying to join.
      */
-    public void recordAttempt(final Player player) {
+    public static void recordAttempt(final Player player) {
 
         final UUID playerId = player.getUniqueId();
 
@@ -30,11 +33,9 @@ public class AttemptTracker {
         attempts.put(playerId, attempts.getOrDefault(playerId, 0) + 1);
 
         // Check if the number of attempts exceeds the limit.
-        if (attempts.get(playerId) >= Data.banAttempts) {
+        if (attempts.get(playerId) >= banAttempts) {
 
-            // Ban the player and kick them with a specified message.
-            Bukkit.getBanList(org.bukkit.BanList.Type.NAME).addBan(player.getName(), Data.banMessage, null, null);
-            player.kickPlayer(Data.banMessage);
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), banCommand.replace("%player%", player.getName()));
 
             // Reset the attempt count for this player after banning.
             attempts.remove(playerId);

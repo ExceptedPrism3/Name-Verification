@@ -48,7 +48,16 @@ Fixes
 <-!------------------------------------------ v3.3 ------------------------------------------!->
 
 Additions
+    [+] Support for 1.20.4
     [+] Ban system if user tried to join more than set attempts
 
 Fixes
     [*] Reload command not updating with the updates
+
+<-!------------------------------------------ v3.4 ------------------------------------------!->
+
+Fixes
+    [*] Auto Ban not working as it should've
+
+Changes
+    [!] Implemented a new regex verification to check the user's name before joining

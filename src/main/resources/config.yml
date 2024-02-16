@@ -32,8 +32,9 @@ Messages:
   No-Permission: "&cYou do not have permission to run this command."
   Reload: "&aConfig Reloaded."
   Invalid-Syntax: "&cInvalid Syntax!"
-  Ban: "&cYou have been banned for violating our rules!"
+  Reason: "&cYou have been banned for violating our rules!"
 
 Ban:
   Enabled: true
+  Command: ban %player% %reason%
   Attempts: 3
